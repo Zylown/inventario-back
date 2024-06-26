@@ -1,9 +1,25 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
 
+import * as moment from 'moment-timezone';
+
+function formatDate() {
+  return moment().tz('America/Lima').format('DD-MM-YYYY:HH:mm:ss');
+}
+
 @Schema({
-  timestamps: true,
+  timestamps: {
+    updatedAt: false, // deshabilita el campo updatedAt
+  },
 })
 export class Inventario {
+  @Prop({
+    type: String,
+    trim: true,
+    required: true,
+    strict: true,
+  })
+  id: string;
+
   @Prop({
     type: String,
     trim: true,
@@ -59,6 +75,9 @@ export class Inventario {
     strict: true,
   })
   precioV: number;
+
+  @Prop({ type: String, default: formatDate })
+  createdAt: string;
 }
 
 export const InventarioSchema = SchemaFactory.createForClass(Inventario);
