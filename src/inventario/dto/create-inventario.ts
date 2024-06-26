@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const CreateInventarioDto = z.object({
-  id: z.string(),
+  id: z.number().optional(),
   categoria: z
     .string()
     .min(3, { message: 'El nombre debe tener al menos 3 caracteres' })
@@ -21,7 +21,6 @@ export const CreateInventarioDto = z.object({
 });
 
 CreateInventarioDto.required({
-  id: true,
   categoria: true,
   producto: true,
   marca: true,

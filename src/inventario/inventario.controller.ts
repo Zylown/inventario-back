@@ -36,6 +36,8 @@ export class InventarioController {
     }
     try {
       return await this.inventarioService.create(body);
-    } catch (error) {}
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
   }
 }

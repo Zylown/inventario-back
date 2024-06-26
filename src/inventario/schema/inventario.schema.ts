@@ -13,12 +13,11 @@ function formatDate() {
 })
 export class Inventario {
   @Prop({
-    type: String,
     trim: true,
     required: true,
     strict: true,
   })
-  id: string;
+  id: number;
 
   @Prop({
     type: String,
