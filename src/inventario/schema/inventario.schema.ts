@@ -6,11 +6,7 @@ function formatDate() {
   return moment().tz('America/Lima').format('DD-MM-YYYY:HH:mm:ss');
 }
 
-@Schema({
-  timestamps: {
-    updatedAt: false, // deshabilita el campo updatedAt
-  },
-})
+@Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
 export class Inventario {
   @Prop({
     trim: true,
@@ -78,6 +74,21 @@ export class Inventario {
 
   @Prop({ type: String, default: formatDate })
   createdAt: string;
+
+  @Prop({ type: String, default: formatDate })
+  updatedAt: string;
 }
 
 export const InventarioSchema = SchemaFactory.createForClass(Inventario);
+
+// Actualiza la fecha de actualización cada vez que se crea un documento
+InventarioSchema.pre('save', function (next) {
+  this.updatedAt = formatDate();
+  next();
+});
+
+// Actualiza la fecha de actualización cada vez que se actualiza un documento
+InventarioSchema.pre('findOneAndUpdate', function (next) {
+  this.set({ updatedAt: formatDate() });
+  next();
+});

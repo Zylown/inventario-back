@@ -2,7 +2,9 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -46,7 +48,6 @@ export class InventarioController {
 
   @Put(':id')
   async update(@Param('id') id: number, @Body() body: UpdateInventarioDto) {
-    
     if (isNaN(id)) {
       throw new BadRequestException('El ID debe ser un número');
     }
@@ -60,6 +61,19 @@ export class InventarioController {
     }
     try {
       return await this.inventarioService.update(id, body);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  @Delete(':id')
+  @HttpCode(204) // código de respuesta HTTP personalizado para el método delete
+  async delete(@Param('id') id: number) {
+    if (isNaN(id)) {
+      throw new BadRequestException('El ID debe ser un número');
+    }
+    try {
+      return await this.inventarioService.deleteOne(id);
     } catch (error) {
       throw new BadRequestException(error.message);
     }

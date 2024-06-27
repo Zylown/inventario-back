@@ -58,4 +58,8 @@ export class InventarioService {
       },
     );
   }
+
+  async deleteOne(id: number) {
+    return this.inventarioModel.findOneAndDelete({ id: id });
+  }
 }
