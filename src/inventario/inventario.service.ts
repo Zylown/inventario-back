@@ -33,7 +33,7 @@ export class InventarioService {
         'Ya existe un producto con la misma combinación de categoria, producto y marca',
       );
     }
-    
+
     // acá se debería generar el id del inventario de manera automática de 1 en 1
     const lastNumberInventario = await this.inventarioModel
       .findOne() // obtiene el último documento
@@ -49,9 +49,13 @@ export class InventarioService {
     return await this.inventarioModel.create(createInventario);
   }
 
-  async update(id: string, updateInventario: UpdateInventarioDto) {
-    return await this.inventarioModel.findByIdAndUpdate(id, updateInventario, {
-      new: true,
-    });
+  async update(id: number, updateInventario: UpdateInventarioDto) {
+    return await this.inventarioModel.findOneAndUpdate(
+      { id: id },
+      updateInventario,
+      {
+        new: true,
+      },
+    );
   }
 }

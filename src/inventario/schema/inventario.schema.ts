@@ -14,8 +14,9 @@ function formatDate() {
 export class Inventario {
   @Prop({
     trim: true,
+    type: Number,
     required: true,
-    strict: true,
+    unique: true, // asegura que el ID sea único
   })
   id: number;
 

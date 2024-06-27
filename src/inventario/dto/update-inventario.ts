@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const UpdateInventarioDto = z.object({
-  id: z.string(),
+  id: z.number().optional(),
   categoria: z
     .string()
     .min(3, { message: 'El nombre debe tener al menos 3 caracteres' })
