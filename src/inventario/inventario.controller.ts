@@ -12,7 +12,6 @@ import {
 } from '@nestjs/common';
 import { InventarioService } from './inventario.service';
 import { CreateInventarioDto } from './dto/create-inventario';
-import { Request } from 'express';
 import { UpdateInventarioDto } from './dto/update-inventario';
 
 @Controller('inventario')
@@ -30,7 +29,7 @@ export class InventarioController {
   }
 
   @Post()
-  async create(@Body() body: CreateInventarioDto, @Req() req: Request) {
+  async create(@Body() body: CreateInventarioDto) {
     // sirve para validar el body con el schema de zod
     const validationResponse = CreateInventarioDto.safeParse(body);
     if (!validationResponse.success) {
