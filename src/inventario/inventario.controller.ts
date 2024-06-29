@@ -8,7 +8,6 @@ import {
   Param,
   Post,
   Put,
-  Req,
 } from '@nestjs/common';
 import { InventarioService } from './inventario.service';
 import { CreateInventarioDto } from './dto/create-inventario';
