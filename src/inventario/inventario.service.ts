@@ -45,28 +45,11 @@ export class InventarioService {
 
     createInventario.id = newId; // asigna el nuevo id al objeto que se va a guardar
 
-     // Transformar el estado a mayúsculas y verificar que esté dentro de los valores permitidos
-  if (createInventario.estado) {
-    const estadoEnMayusculas = createInventario.estado.toUpperCase();
-    if (estadoEnMayusculas !== 'ACTIVO' && estadoEnMayusculas !== 'INACTIVO') {
-      throw new Error('El estado debe ser ACTIVO o INACTIVO');
-    }
-    createInventario.estado = estadoEnMayusculas as 'ACTIVO' | 'INACTIVO';
-  }
-
     // acá se debería generar la fecha de creación de manera automática
     return await this.inventarioModel.create(createInventario);
   }
 
   async update(id: number, updateInventario: UpdateInventarioDto) {
-    // Transformar el estado a mayúsculas y verificar que esté dentro de los valores permitidos
-  if (updateInventario.estado) {
-    const estadoEnMayusculas = updateInventario.estado.toUpperCase();
-    if (estadoEnMayusculas !== 'ACTIVO' && estadoEnMayusculas !== 'INACTIVO') {
-      throw new Error('El estado debe ser ACTIVO o INACTIVO');
-    }
-    updateInventario.estado = estadoEnMayusculas as 'ACTIVO' | 'INACTIVO';
-  }
   
     return await this.inventarioModel.findOneAndUpdate(
       { id: id },

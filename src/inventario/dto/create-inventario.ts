@@ -14,7 +14,10 @@ export const CreateInventarioDto = z.object({
     .string()
     .min(3, { message: 'El nombre debe tener al menos 3 caracteres' })
     .max(255),
-  estado: z.enum(['ACTIVO', 'INACTIVO']),
+  tamanio: z
+    .string()
+    .min(3, { message: 'El nombre debe tener al menos 3 caracteres' })
+    .max(255),
   stock: z.number(),
   precioC: z.number(),
   precioV: z.number(),

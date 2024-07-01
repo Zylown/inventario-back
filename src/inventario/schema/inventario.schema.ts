@@ -46,7 +46,7 @@ export class Inventario {
     required: true,
     strict: true,
   })
-  estado: string;
+  tamanio: string;
 
   @Prop({
     type: Number,
