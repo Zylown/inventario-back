@@ -3,6 +3,7 @@ import { Module } from '@nestjs/common';
 import { InventarioModule } from './inventario/inventario.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { WebsocketModule } from './websocket/websocket.module';
+import { KardexModule } from './kardex/kardex.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { WebsocketModule } from './websocket/websocket.module';
     MongooseModule.forRoot(process.env.MONGO_DB),
     InventarioModule,
     WebsocketModule,
+    KardexModule,
   ],
 })
 export class AppModule {}

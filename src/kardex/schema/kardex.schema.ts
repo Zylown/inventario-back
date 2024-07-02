@@ -7,25 +7,21 @@ function formatDate() {
 }
 
 @Schema({ timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' } })
-export class Inventario {
+export class Kardex {
   @Prop({
     trim: true,
-    type: Number,
-    required: true,
     unique: true, // asegura que el ID sea único
   })
-  id: number;
+  fecha: string;
 
   @Prop({
-    type: String,
     trim: true,
     required: true,
     strict: true,
   })
-  categoria: string;
+  hora: string;
 
   @Prop({
-    type: String,
     trim: true,
     required: true,
     strict: true,
@@ -33,64 +29,78 @@ export class Inventario {
   producto: string;
 
   @Prop({
-    type: String,
     trim: true,
     required: true,
     strict: true,
   })
-  marca: string;
+  descripcion: string;
+
+  @Prop({
+    trim: true,
+    required: true,
+    strict: true,
+  })
+  agente: string;
+
+  @Prop({
+    trim: true,
+    required: true,
+    strict: true,
+  })
+  nombre: string;
+
+  @Prop({
+    trim: true,
+    required: true,
+    strict: true,
+  })
+  inicial: number;
+
+  @Prop({
+    trim: true,
+    required: true,
+    strict: true,
+  })
+  entrada: number;
+
+  @Prop({
+    trim: true,
+    required: true,
+    strict: true,
+  })
+  salida: number;
+
+  @Prop({
+    trim: true,
+    required: true,
+    strict: true,
+  })
+  final: number;
 
   @Prop({
     type: String,
-    trim: true,
-    required: true,
-    strict: true,
+    default: formatDate,
   })
-  tamanio: string;
-
-  @Prop({
-    type: Number,
-    trim: true,
-    required: true,
-    strict: true,
-  })
-  stock: number;
-
-  @Prop({
-    type: Number,
-    trim: true,
-    required: true,
-    strict: true,
-  })
-  precioC: number;
-
-  @Prop({
-    type: Number,
-    trim: true,
-    required: true,
-    strict: true,
-  })
-  precioV: number;
-
-  @Prop({ type: String, default: formatDate })
   createdAt: string;
 
-  @Prop({ type: String, default: formatDate })
+  @Prop({
+    type: String,
+    default: formatDate,
+  })
   updatedAt: string;
 }
 
-export const InventarioSchema = SchemaFactory.createForClass(Inventario);
+export const KardexSchema = SchemaFactory.createForClass(Kardex);
 
 //Esto sirve para que cada vez que se cree un documento se actualice la fecha de creación
-// o sea que cada vez que se cree un documento se actualice la fecha de creación y actualización del documento
 // Actualiza la fecha de actualización cada vez que se crea un documento
-InventarioSchema.pre('save', function (next) {
+KardexSchema.pre('save', function (next) {
   this.updatedAt = formatDate();
   next();
 });
 
 // Actualiza la fecha de actualización cada vez que se actualiza un documento
-InventarioSchema.pre('findOneAndUpdate', function (next) {
+KardexSchema.pre('findOneAndUpdate', function (next) {
   this.set({ updatedAt: formatDate() });
   next();
 });
