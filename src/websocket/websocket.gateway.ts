@@ -22,7 +22,7 @@ export class WebsocketGateway
 {
   @WebSocketServer() server: Server; // sirve para inyectar el servidor de WebSocket
 
-  afterInit(server: Socket) {
+  afterInit(server: Server) {
     console.log('WebSocket iniciado');
   }
 
@@ -35,8 +35,9 @@ export class WebsocketGateway
   }
 
   @SubscribeMessage('updateInventory')
-  handleMessage(@MessageBody() data: string): void {
+  handleMessage(@MessageBody() data: any): void {
     console.log(data);
-    this.server.emit('updateInventory', data);
+    const inventoryData = Array.isArray(data) ? data : [data];
+    this.server.emit('updateInventory', inventoryData);
   }
 }

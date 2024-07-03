@@ -10,7 +10,6 @@ function formatDate() {
 export class Kardex {
   @Prop({
     trim: true,
-    unique: true, // asegura que el ID sea único
   })
   fecha: string;
 
