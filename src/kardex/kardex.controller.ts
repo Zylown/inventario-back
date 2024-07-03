@@ -9,10 +9,14 @@ import {
 } from '@nestjs/common';
 import { KardexService } from './kardex.service';
 import { CreateKardexDto } from './dto/create-kardex';
+import { WebsocketGateway } from 'src/websocket/websocket.gateway';
 
 @Controller('kardex')
 export class KardexController {
-  constructor(private kardexService: KardexService) {}
+  constructor(
+    private kardexService: KardexService,
+    private readonly WebsocketGateway: WebsocketGateway,
+  ) {}
 
   @Get()
   getAll() {
@@ -30,7 +34,9 @@ export class KardexController {
     }
 
     try {
-      return await this.kardexService.create(body);
+      const kardex = await this.kardexService.create(body);
+      this.WebsocketGateway.server.emit('updateKardex', kardex);
+      return kardex;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -47,7 +53,9 @@ export class KardexController {
     }
 
     try {
-      return await this.kardexService.update(id, body);
+      const kardex = await this.kardexService.update(id, body);
+      this.WebsocketGateway.server.emit('updateKardex', kardex);
+      return kardex;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
