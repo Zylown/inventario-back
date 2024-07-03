@@ -19,7 +19,7 @@ export const UpdateInventarioDto = z.object({
     .optional(),
   tamanio: z
     .string()
-    .min(3, { message: 'El nombre debe tener al menos 3 caracteres' })
+    .min(1, { message: 'El nombre debe tener al menos 1 caracteres' })
     .max(255)
     .optional(),
   stock: z.number().optional(),

@@ -16,4 +16,10 @@ export class KardexService {
   async create(createKardex: CreateKardexDto) {
     return await this.kardexModel.create(createKardex);
   }
+
+  async update(id: string, updateKardex: CreateKardexDto) {
+    return await this.kardexModel.findByIdAndUpdate(id, updateKardex, {
+      new: true,
+    });
+  }
 }

@@ -3,7 +3,9 @@ import {
   Body,
   Controller,
   Get,
+  Param,
   Post,
+  Put,
 } from '@nestjs/common';
 import { KardexService } from './kardex.service';
 import { CreateKardexDto } from './dto/create-kardex';
@@ -26,9 +28,26 @@ export class KardexController {
         validationResponse.error.errors.map((error) => error.message),
       );
     }
-    
+
     try {
       return await this.kardexService.create(body);
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() body: CreateKardexDto) {
+    const validationResponse = CreateKardexDto.safeParse(body);
+    if (!validationResponse.success) {
+      console.log(validationResponse.error.errors);
+      throw new BadRequestException(
+        validationResponse.error.errors.map((error) => error.message),
+      );
+    }
+
+    try {
+      return await this.kardexService.update(id, body);
     } catch (error) {
       throw new BadRequestException(error.message);
     }

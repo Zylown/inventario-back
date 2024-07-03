@@ -12,10 +12,14 @@ import {
 import { InventarioService } from './inventario.service';
 import { CreateInventarioDto } from './dto/create-inventario';
 import { UpdateInventarioDto } from './dto/update-inventario';
+import { WebsocketGateway } from 'src/websocket/websocket.gateway';
 
 @Controller('inventario')
 export class InventarioController {
-  constructor(private inventarioService: InventarioService) {}
+  constructor(
+    private readonly inventarioService: InventarioService,
+    private readonly websocketGateway: WebsocketGateway, // Se inyecta el WebSocketGateway
+  ) {}
 
   // @Get()
   // holaMundo() {
@@ -38,7 +42,9 @@ export class InventarioController {
       );
     }
     try {
-      return await this.inventarioService.create(body);
+      const newInventario = await this.inventarioService.create(body);
+      this.websocketGateway.server.emit('updateInventory', newInventario); // Emite el evento WebSocket
+      return newInventario;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
@@ -58,7 +64,9 @@ export class InventarioController {
       );
     }
     try {
-      return await this.inventarioService.update(id, body);
+      const updatedInventario = await this.inventarioService.update(id, body);
+      this.websocketGateway.server.emit('updateInventory', updatedInventario); // Emite el evento WebSocket
+      return updatedInventario;
     } catch (error) {
       throw new BadRequestException(error.message);
     }
