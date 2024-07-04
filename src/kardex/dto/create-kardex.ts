@@ -1,12 +1,12 @@
 import { z } from 'zod';
 
 export const CreateKardexDto = z.object({
-  fecha: z.string().optional(),
-  hora: z.string().optional(),
-  producto: z.string().optional(),
-  descripcion: z.string().optional(),
-  agente: z.string().optional(),
-  nombre: z.string().optional(),
+  fecha: z.string(),
+  hora: z.string(),
+  producto: z.string(),
+  descripcion: z.string(),
+  agente: z.string(),
+  nombre: z.string(),
   inicial: z.number(),
   entrada: z.number(),
   salida: z.number(),

@@ -10,6 +10,7 @@ import {
 import { KardexService } from './kardex.service';
 import { CreateKardexDto } from './dto/create-kardex';
 import { WebsocketGateway } from 'src/websocket/websocket.gateway';
+import { UpdateKardexDto } from './dto/update-kardex';
 
 @Controller('kardex')
 export class KardexController {
@@ -43,8 +44,8 @@ export class KardexController {
   }
 
   @Put(':id')
-  async update(@Param('id') id: string, @Body() body: CreateKardexDto) {
-    const validationResponse = CreateKardexDto.safeParse(body);
+  async update(@Param('id') id: string, @Body() body: UpdateKardexDto) {
+    const validationResponse = UpdateKardexDto.safeParse(body);
     if (!validationResponse.success) {
       console.log(validationResponse.error.errors);
       throw new BadRequestException(
