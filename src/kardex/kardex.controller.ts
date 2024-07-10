@@ -2,7 +2,9 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Get,
+  HttpCode,
   Param,
   Post,
   Put,
@@ -56,6 +58,18 @@ export class KardexController {
     try {
       const kardex = await this.kardexService.update(id, body);
       this.WebsocketGateway.server.emit('updateKardex', kardex);
+      return kardex;
+    } catch (error) {
+      throw new BadRequestException(error.message);
+    }
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  async delete(@Param('id') id: string) {
+    try {
+      const kardex = await this.kardexService.delete(id);
+      this.WebsocketGateway.server.emit('deleteKardex', kardex);
       return kardex;
     } catch (error) {
       throw new BadRequestException(error.message);

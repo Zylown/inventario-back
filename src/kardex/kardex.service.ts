@@ -14,12 +14,21 @@ export class KardexService {
   }
 
   async create(createKardex: CreateKardexDto) {
+    // que en final se ponga el valor de inicial + entrada - salida
+    createKardex.final =
+      createKardex.inicial + createKardex.entrada - createKardex.salida;
     return await this.kardexModel.create(createKardex);
   }
 
   async update(id: string, updateKardex: CreateKardexDto) {
+    updateKardex.final =
+      updateKardex.inicial + updateKardex.entrada - updateKardex.salida;
     return await this.kardexModel.findByIdAndUpdate(id, updateKardex, {
       new: true,
     });
+  }
+
+  async delete(id: string) {
+    return await this.kardexModel.findByIdAndDelete(id);
   }
 }
