@@ -47,4 +47,11 @@ export class WebsocketGateway
     const kardexData = Array.isArray(data) ? data : [data];
     this.server.emit('updateKardex', kardexData);
   }
+
+  @SubscribeMessage('deleteKardex')
+  handleDeleteKardex(@MessageBody() data: any): void {
+    console.log(data);
+    const kardexData = Array.isArray(data) ? data : [data];
+    this.server.emit('deleteKardex', kardexData);
+  }
 }

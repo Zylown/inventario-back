@@ -10,7 +10,7 @@ export const CreateKardexDto = z.object({
   inicial: z.number(),
   entrada: z.number(),
   salida: z.number(),
-  final: z.number(),
+  final: z.number().optional(),
 });
 
 //se pone mismo nombre de la variable que se exporta porque se exporta una sola cosa y se pone el tipo de la variable

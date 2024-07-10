@@ -71,10 +71,9 @@ export class Kardex {
 
   @Prop({
     trim: true,
-    required: true,
     strict: true,
   })
-  final: number;
+  final?: number;
 
   @Prop({
     type: String,
