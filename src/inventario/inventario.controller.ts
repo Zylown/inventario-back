@@ -43,7 +43,8 @@ export class InventarioController {
     }
     try {
       const newInventario = await this.inventarioService.create(body);
-      this.websocketGateway.server.emit('updateInventory', newInventario); // Emite el evento WebSocket
+      this.websocketGateway.server.emit('updateInventory', newInventario); // Emite el evento WebSocket y espera 
+      // un objeto con la propiedad 'updateInventory' y el valor de newInventario
       return newInventario;
     } catch (error) {
       throw new BadRequestException(error.message);
